@@ -13,6 +13,7 @@ struct WeatherD {
 //    let icon:String
      let temperature:Double
     let tempLow:Double
+    let sunsetTime:Double
 //    let windSpeed:Double
 //    let humidity:Double
     let time:Double
@@ -31,6 +32,7 @@ struct WeatherD {
 //
          guard let temperature = json["temperatureMax"] as? Double else {throw SerializationError.missing("temp is missing")}
         guard let tempLow = json["temperatureLow"] as? Double else {throw SerializationError.missing("temp is missing")}
+        guard let sunsetTime = json["sunsetTime"] as? Double else {throw SerializationError.missing("temp is missing")}
         
 //        guard let windSpeed = json["windSpeed"] as? Double else {throw SerializationError.missing("temp is missing")}
 //        guard let humidity = json["humidity"] as? Double else {throw SerializationError.missing("temp is missing")}
@@ -44,6 +46,7 @@ struct WeatherD {
 //        self.windSpeed = windSpeed
 //        self.humidity = humidity
         self.time = time
+        self.sunsetTime = sunsetTime
 //        self.cloudCover = cloudCover
         
         

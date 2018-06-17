@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         //label for time, windspeed, and humidity
         label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
         label.numberOfLines = 112
-        label.center = CGPoint(x: 180, y: 250)
+        label.center = CGPoint(x: 180, y: 280)
         label.textAlignment = .natural
         label.textColor = UIColor.black
         label.font = UIFont(name: "Dosis-Light", size: 26)
@@ -146,6 +146,8 @@ class ViewController: UIViewController {
                     let windSpeed = String(result.windSpeed)
                     let nearestStormDistance = String(result.nearestStormDistance)
                     let cloudCover = String(result.cloudCover*100)
+                    let precipProbability = String(result.precipProbability*100)
+                    
                     
                     let humidity = String(Int(result.humidity*100))
                     
@@ -155,7 +157,7 @@ class ViewController: UIViewController {
                     let dateFormatter = DateFormatter()
                     dateFormatter.timeZone = TimeZone(abbreviation: "EDT") //Set timezone that you want
                     dateFormatter.locale = NSLocale.current
-                    dateFormatter.dateFormat = "MM-dd HH:mm" //Specify your format that you want
+                    dateFormatter.dateFormat = "MM-dd h:mm" //Specify your format that you want
                     let strDate = dateFormatter.string(from: date)
                     
                     
@@ -167,7 +169,7 @@ class ViewController: UIViewController {
                     self.labeld.text = temperature + "˚F"
                     self.labeld.textColor = UIColor.darkGray
                     
-                    self.label.text = ("time: "+strDate+"\nwindspeed: "+windSpeed+" MPH. "+"\nhumidity: "+humidity+"%\nnearest storm: "+nearestStormDistance+" miles"+"\ncloud cover: "+cloudCover+"%")
+                    self.label.text = ("time: "+strDate+"\nwindspeed: "+windSpeed+" MPH. "+"\nhumidity: "+humidity+"%\nnearest storm: "+nearestStormDistance+" miles"+"\ncloud cover: "+cloudCover+"%"+"\nprecipitation probability: "+precipProbability+"%")
                     
                 
                     
@@ -186,10 +188,12 @@ class ViewController: UIViewController {
                     self.labelSum.text = weatherSum
                     
                     
+                    
                 }
               break
             }
         }
+       
         WeatherD.dailyForecast(withLocation: "35.9467,-79.0612") { (results:[WeatherD]) in
             for result in results {
                 DispatchQueue.main.async {
@@ -199,20 +203,23 @@ class ViewController: UIViewController {
                     let tempLow = String(result.tempLow)
                     self.labelLow.text = tempLow + "˚F"
                     
-                    let unixTimestamp = result.time
-                    let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp))
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.timeZone = TimeZone(abbreviation: "EDT") //Set timezone that you want
-                    dateFormatter.locale = NSLocale.current
-                    dateFormatter.dateFormat = "MM-dd HH:mm" //Specify your format that you want
-                    let strDate = dateFormatter.string(from: date)
+                    let sunsetTime:String? = String(result.sunsetTime)
                     
                     
+                    if let sunset = sunsetTime {
+                        let unixTimestamp = sunset
+                        let date = Date(timeIntervalSince1970: TimeInterval(unixTimestamp)!)
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.timeZone = TimeZone(abbreviation: "EDT") //Set timezone that you want
+                        dateFormatter.locale = NSLocale.current
+                        dateFormatter.dateFormat = "h:mm" //Specify your format that you want
+                        let strDate = dateFormatter.string(from: date)
+                        
+                        self.label.text?.append("\nsunset time: "+strDate+" PM")
+                    }
                     
-                    print("time df ",strDate)
-                    
-                    
+               
                 }
                 break
             }

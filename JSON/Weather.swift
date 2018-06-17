@@ -17,6 +17,7 @@ struct Weather {
     let time:Double
     let nearestStormDistance:Double
     let cloudCover:Double
+    let precipProbability:Double
     
     enum SerializationError:Error {
         case missing(String)
@@ -35,6 +36,7 @@ struct Weather {
         guard let time = json["time"] as? Double else {throw SerializationError.missing("time is missing")}
         guard let nearestStormDistance = json["nearestStormDistance"] as? Double else {throw SerializationError.missing("time is missing")}
         guard let cloudCover = json["cloudCover"] as? Double else {throw SerializationError.missing("time is missing")}
+        guard let precipProbability = json["precipProbability"] as? Double else {throw SerializationError.missing("time is missing")}
         
         
        
@@ -47,6 +49,7 @@ struct Weather {
         self.time = time
         self.nearestStormDistance = nearestStormDistance
         self.cloudCover = cloudCover
+        self.precipProbability = precipProbability
         
         
     }

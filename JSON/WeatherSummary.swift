@@ -13,7 +13,7 @@ struct WeatherSummary {
 //    let icon:String
 //    let temperature:Double
 //    let windSpeed:Double
-//    let humidity:Double
+    
  //   let time:Double
     
     enum SerializationError:Error {
@@ -29,14 +29,14 @@ struct WeatherSummary {
 //
 //        guard let temperature = json["temperature"] as? Double else {throw SerializationError.missing("temp is missing")}
 //        guard let windSpeed = json["windSpeed"] as? Double else {throw SerializationError.missing("temp is missing")}
-//        guard let humidity = json["humidity"] as? Double else {throw SerializationError.missing("temp is missing")}
+        
  //       guard let time = json["time"] as? Double else {throw SerializationError.missing("time is missing")}
 //
         self.summary = summary
 //        self.icon = icon
 //        self.temperature = temperature
 //        self.windSpeed = windSpeed
-//        self.humidity = humidity
+        
 //        self.time = time
         
         
